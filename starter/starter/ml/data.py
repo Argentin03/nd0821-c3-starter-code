@@ -44,6 +44,9 @@ def process_data(
         passed in.
     """
 
+    # Remove spaces
+    X = X.applymap(lambda x: x.strip() if isinstance(x, str) else x)
+
     if label is not None:
         y = X[label]
         X = X.drop([label], axis=1)

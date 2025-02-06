@@ -1,4 +1,8 @@
 from sklearn.metrics import fbeta_score, precision_score, recall_score
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
 
 
 # Optional: implement hyperparameter tuning.
@@ -17,8 +21,26 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
-
-    pass
+    
+    # Define the model pipeline
+    pipeline = Pipeline([
+        ('scaler', StandardScaler()),
+        ('model', RandomForestClassifier())
+    ])
+    
+    # Define hyperparameters for tuning
+    param_grid = {
+        'model__n_estimators': [100, 200],
+        'model__max_depth': [3, 5, 7],
+        'model__min_samples_split': [2, 5, 10]
+    }
+    
+    # Perform GridSearchCV
+    grid_search = GridSearchCV(pipeline, param_grid, cv=5, scoring='accuracy', n_jobs=-1)
+    grid_search.fit(X_train, y_train)
+    
+    # Return the best model
+    return grid_search.best_estimator_
 
 
 def compute_model_metrics(y, preds):
@@ -48,7 +70,7 @@ def inference(model, X):
 
     Inputs
     ------
-    model : ???
+    model : RandomForestClassifier
         Trained machine learning model.
     X : np.array
         Data used for prediction.
@@ -57,4 +79,4 @@ def inference(model, X):
     preds : np.array
         Predictions from the model.
     """
-    pass
+    return model.predict(X)
