@@ -1,6 +1,5 @@
-import pytest
 from fastapi.testclient import TestClient
-from main import app  # Import the FastAPI app
+from main import app
 
 # Create a test client
 client = TestClient(app)
@@ -10,7 +9,10 @@ def test_get_root():
     """Test the GET / endpoint."""
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"message": "Welcome to the ML Model Inference API"}, "GET / response did not match expected message"
+    assert response.json() == {
+        "message": "Welcome to the ML Model Inference API"
+    }, "GET / response did not match expected message"
+
 
 def test_post_predict_high_income():
     """Test the POST /predict endpoint when predicting >50k."""
@@ -33,7 +35,10 @@ def test_post_predict_high_income():
     response = client.post("/predict", json=input_data)
     assert response.status_code == 200
     assert "prediction" in response.json()
-    assert response.json()["prediction"] == ">50K", f"Expected '>50K' but got {response.json()['prediction']}"
+    assert response.json()["prediction"] == ">50K", f"Expected '>50K' but got {
+        response.json()['prediction']
+    }"
+
 
 def test_post_predict_low_income():
     """Test the POST /predict endpoing when predicting <=50k"""
@@ -56,4 +61,6 @@ def test_post_predict_low_income():
     response = client.post("/predict", json=input_data)
     assert response.status_code == 200
     assert "prediction" in response.json()
-    assert response.json()["prediction"] == "<=50K", f"Expected '<=50K' but got {response.json()['prediction']}"
+    assert response.json()["prediction"] == "<=50K", f"Expected '<=50K' got {
+        response.json()['prediction']
+    }"

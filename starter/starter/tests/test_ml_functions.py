@@ -1,9 +1,12 @@
 import pytest
-import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
-from ml.model import train_model, inference
-from ml.data import process_data
+import sys
+import os
+sys.path.append(os.path.abspath("ml"))
+from model import train_model, inference
+from data import process_data
+
 
 @pytest.fixture
 def sample_data():
@@ -20,21 +23,35 @@ def sample_data():
     ]
     label = "salary"
     X_train, y_train, encoder, lb = process_data(
-        data, categorical_features=categorical_features, label=label, training=True
+        data,
+        categorical_features=categorical_features,
+        label=label,
+        training=True
     )
     model = train_model(X_train, y_train)
-    return data, categorical_features, label, X_train, y_train, encoder, lb, model
+    return (
+        data,
+        categorical_features,
+        label,
+        X_train,
+        y_train,
+        encoder,
+        lb,
+        model)
 
 
 def test_process_data(sample_data):
     """Test the process_data function."""
     data, categorical_features, label, _, _, _, _ = sample_data
     X, y, encoder, lb = process_data(
-        data, categorical_features=categorical_features, label=label, training=True
+        data,
+        categorical_features=categorical_features,
+        label=label,
+        training=True
     )
     assert X.shape[0] == data.shape[0]
-    assert len(y) == data.shape[0] 
-    assert encoder is not None 
+    assert len(y) == data.shape[0]
+    assert encoder is not None
     assert lb is not None
 
 
@@ -50,4 +67,4 @@ def test_inference(sample_data):
     _, _, _, X_train, y_train, _, _, model = sample_data
     preds = inference(model, X_train)
     assert len(preds) == len(y_train)
-    assert preds[0] in model.classes_ 
+    assert preds[0] in model.classes_

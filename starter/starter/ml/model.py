@@ -6,6 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from data import process_data
 from sklearn.metrics import accuracy_score
 
+
 # Optional: implement hyperparameter tuning.
 def train_model(X_train, y_train):
     """
@@ -22,31 +23,36 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
-    
+
     # Define the model pipeline
     pipeline = Pipeline([
         ('scaler', StandardScaler()),
         ('model', RandomForestClassifier())
     ])
-    
+
     # Define hyperparameters for tuning
     param_grid = {
         'model__n_estimators': [100, 200],
         'model__max_depth': [3, 5, 7],
         'model__min_samples_split': [2, 5, 10]
     }
-    
+
     # Perform GridSearchCV
-    grid_search = GridSearchCV(pipeline, param_grid, cv=5, scoring='accuracy', n_jobs=-1)
+    grid_search = GridSearchCV(pipeline, 
+                               param_grid, 
+                               cv=5, 
+                               scoring='accuracy', 
+                               n_jobs=-1)
     grid_search.fit(X_train, y_train)
-    
+
     # Return the best model
     return grid_search.best_estimator_
 
 
 def compute_model_metrics(y, preds):
     """
-    Validates the trained machine learning model using precision, recall, and F1.
+    Validates the trained machine learning model using precision, 
+    recall, and F1.
 
     Inputs
     ------
@@ -82,7 +88,13 @@ def inference(model, X):
     """
     return model.predict(X)
 
-def evaluate_model_on_slices(model, data, categorical_features, label, encoder, lb):
+
+def evaluate_model_on_slices(model, 
+                             data, 
+                             categorical_features, 
+                             label, 
+                             encoder, 
+                             lb):
     """Evaluate model performance on slices of categorical features."""
     results = {}
     for feature in categorical_features:
@@ -91,7 +103,12 @@ def evaluate_model_on_slices(model, data, categorical_features, label, encoder, 
             subset = data[data[feature] == value]
             if not subset.empty:
                 X_subset, y_subset, _, _ = process_data(
-                    subset, categorical_features=categorical_features, label=label, training=False, encoder=encoder, lb=lb
+                    subset, 
+                    categorical_features=categorical_features, 
+                    label=label, 
+                    training=False, 
+                    encoder=encoder, 
+                    lb=lb
                 )
                 preds = inference(model, X_subset)
                 accuracy = accuracy_score(y_subset, preds)

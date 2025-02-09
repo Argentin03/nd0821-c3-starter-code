@@ -1,4 +1,3 @@
-# Put the code for your API here.
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 import pickle
@@ -6,7 +5,6 @@ import pandas as pd
 import uvicorn
 import sys
 import os
-sys.path.append(os.path.abspath("starter/ml"))
 from data import process_data
 from model import inference
 
@@ -33,16 +31,21 @@ cat_features = [
     "native-country",
 ]
 
+
 # Define a Pydantic model to handle incoming requests
 class InputData(BaseModel):
     workclass: str = Field(..., example="Private")
     education: str = Field(..., example="Bachelors")
-    marital_status: str = Field(..., alias="marital-status", example="Never-married")
+    marital_status: str = Field(..., 
+                                alias="marital-status", 
+                                example="Never-married")
     occupation: str = Field(..., example="Prof-specialty")
     relationship: str = Field(..., example="Not-in-family")
     race: str = Field(..., example="White")
     sex: str = Field(..., example="Male")
-    native_country: str = Field(..., alias="native-country", example="United-States")
+    native_country: str = Field(..., 
+                                alias="native-country", 
+                                example="United-States")
     age: int = Field(..., example=39)
     fnlwgt: int = Field(..., example=77516)
     education_num: int = Field(..., alias="education-num", example=13)
@@ -99,14 +102,15 @@ def root():
 @app.post("/predict")
 def predict(input_data: InputData) -> dict:
     """POST endpoint for model inference."""
-    
+
     # Convert input data to DataFrame
     data_dict = input_data.dict(by_alias=True)
     data_df = pd.DataFrame([data_dict])
 
     # Process input data
     X_processed, _, _, _ = process_data(
-        data_df, categorical_features=cat_features, label=None, training=False, encoder=encoder, lb=lb
+        data_df, categorical_features=cat_features, 
+        label=None, training=False, encoder=encoder, lb=lb
     )
 
     # Run model inference
@@ -117,5 +121,7 @@ def predict(input_data: InputData) -> dict:
 
     return {"prediction": predicted_label}
 
+
 if __name__ == "__main__":
+    sys.path.append(os.path.abspath("starter/ml"))
     uvicorn.run(app, host="0.0.0.0", port=8000)
