@@ -3,7 +3,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
-from data import process_data
+from starter.ml.data import process_data
 from sklearn.metrics import accuracy_score
 
 
