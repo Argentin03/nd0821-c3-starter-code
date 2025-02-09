@@ -10,7 +10,7 @@ from data import process_data
 # Add code to load in the data.
 data = pd.read_csv("../data/census.csv")
 
-# Optional enhancement, use K-fold cross validation 
+# Optional enhancement, use K-fold cross validation
 # instead of a train-test split.
 train, test = train_test_split(data, test_size=0.20)
 

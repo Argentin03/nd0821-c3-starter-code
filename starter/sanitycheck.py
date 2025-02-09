@@ -126,7 +126,9 @@ def run_sanity_check(test_dir):
                 TEST_FOR_POST_METHOD_RESPONSE_CODE = True
             if (
                 source.find('.json') != -1
-                ) or (source.find('json.loads') != -1):
+            ) or (
+                source.find('json.loads') != -1
+            ):
                 TEST_FOR_POST_METHOD_RESPONSE_BODY = True
                 COUNT_POST_METHOD_TEST_FOR_INFERENCE_RESULT += 1
 
