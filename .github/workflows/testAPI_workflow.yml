@@ -34,4 +34,4 @@ jobs:
 
       - name: Run pytest (Testing)
         run: |
-          pytest tests/
+          pytest starter/starter/tests/
