@@ -68,5 +68,6 @@ def test_inference(sample_data):
     assert len(preds) == len(y_train)
     assert preds[0] in model.classes_
 
+
 if __name__ == "__main__":
     sys.path.append(os.path.abspath("ml"))

@@ -71,7 +71,9 @@ def run_sanity_check(test_dir):
                 TEST_FOR_GET_METHOD_RESPONSE_CODE = True
             if (
                 source.find('.json') != -1
-                ) or (source.find('json.loads') != -1):
+            ) or (
+                source.find('json.loads') != -1
+            ):
                 TEST_FOR_GET_METHOD_RESPONSE_BODY = True
 
         if not TEST_FOR_GET_METHOD_RESPONSE_CODE:
@@ -95,21 +97,27 @@ def run_sanity_check(test_dir):
         print(FAIL_COLOR+f"[{WARNING_COUNT}]")
         WARNING_COUNT += 1
         print(FAIL_COLOR+"No test cases were detected for the POST() method.")
-        print(FAIL_COLOR+"Please make sure you have TWO test cases for " +
-              "the POST() method." +
-              "\nOne test case for EACH of the possible inferences \
-                (results/outputs) of the ML model.\n")
+        print(
+            FAIL_COLOR + "Please make sure you have TWO test cases for "
+            + "the POST() method."
+            + "\nOne test case for EACH of the possible inferences "
+            + "(results/outputs) of the ML model.\n"
+        )
         SANITY_TEST_PASSING = False
     else:
         if len(test_functions_for_post) == 1:
             print(f"[{WARNING_COUNT}]")
             WARNING_COUNT += 1
-            print(FAIL_COLOR+"Only one test case was detected for the "
-                  "POST() method.")
-            print(FAIL_COLOR+"Please make sure you have two test cases " +
-                   "for the POST() method." +
-                   "\nOne test case for EACH of the possible inferences \
-                    (results/outputs) of the ML model.\n")
+            print(
+                FAIL_COLOR + "Only one test case was detected for the "
+                + "POST() method."
+            )
+            print(
+                FAIL_COLOR + "Please make sure you have two test cases "
+                + "for the POST() method."
+                + "\nOne test case for EACH of the possible inferences "
+                + "(results/outputs) of the ML model.\n"
+            )
             SANITY_TEST_PASSING = False
 
         for func in test_functions_for_post:

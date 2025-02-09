@@ -103,11 +103,11 @@ def evaluate_model_on_slices(model,
             subset = data[data[feature] == value]
             if not subset.empty:
                 X_subset, y_subset, _, _ = process_data(
-                    subset, 
-                    categorical_features=categorical_features, 
-                    label=label, 
-                    training=False, 
-                    encoder=encoder, 
+                    subset,
+                    categorical_features=categorical_features,
+                    label=label,
+                    training=False,
+                    encoder=encoder,
                     lb=lb
                 )
                 preds = inference(model, X_subset)
