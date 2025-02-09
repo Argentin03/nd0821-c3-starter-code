@@ -11,7 +11,7 @@ from starter.ml.model import inference
 # Initialize FastAPI app
 app = FastAPI()
 
-model_path = "./model/model.pkl"
+model_path = "./starter/model/model.pkl"
 
 if not os.path.exists(model_path):
     print(f"❌ model.pkl not found at {model_path}")
@@ -21,11 +21,11 @@ else:
     print(f"✅ model.pkl found at {model_path}")
 
 # Load trained model, encoder, and label binarizer
-with open("./model/model.pkl", "rb") as f:
+with open("./starter/model/model.pkl", "rb") as f:
     model = pickle.load(f)
-with open("./model/encoder.pkl", "rb") as f:
+with open("./starter/model/encoder.pkl", "rb") as f:
     encoder = pickle.load(f)
-with open("./model/label_binarizer.pkl", "rb") as f:
+with open("./starter/model/label_binarizer.pkl", "rb") as f:
     lb = pickle.load(f)
 
 # Define categorical features
