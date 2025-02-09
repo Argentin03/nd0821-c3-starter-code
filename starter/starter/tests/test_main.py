@@ -10,11 +10,11 @@ def test_get_root():
     """Test the GET / endpoint."""
     response = client.get("/")
     assert response.status_code == 200
+    assert response.json() == {"message": "Welcome to the ML Model Inference API"}, "GET / response did not match expected message"
 
-
-@pytest.mark.parametrize("input_data, expected_output", [
-    # Test Case 1: Expecting ">50K"
-    ({
+def test_post_predict_high_income():
+    """Test the POST /predict endpoint when predicting >50k."""
+    input_data = {
         "workclass": "Private",
         "education": "Bachelors",
         "marital-status": "Never-married",
@@ -29,10 +29,15 @@ def test_get_root():
         "capital-gain": 2174,
         "capital-loss": 0,
         "hours-per-week": 40
-    }, ">50K"),
-    
-    # Test Case 2: Expecting "<=50K"
-    ({
+    }
+    response = client.post("/predict", json=input_data)
+    assert response.status_code == 200
+    assert "prediction" in response.json()
+    assert response.json()["prediction"] == ">50K", f"Expected '>50K' but got {response.json()['prediction']}"
+
+def test_post_predict_low_income():
+    """Test the POST /predict endpoing when predicting <=50k"""
+    input_data = {
         "workclass": "State-gov",
         "education": "Some-college",
         "marital-status": "Married-civ-spouse",
@@ -47,11 +52,8 @@ def test_get_root():
         "capital-gain": 0,
         "capital-loss": 0,
         "hours-per-week": 30
-    }, "<=50K"),
-])
-def test_post_predict(input_data, expected_output):
-    """Test the POST /predict endpoint with different input cases."""
+    }
     response = client.post("/predict", json=input_data)
     assert response.status_code == 200
     assert "prediction" in response.json()
-    assert response.json()["prediction"] == expected_output
+    assert response.json()["prediction"] == "<=50K", f"Expected '<=50K' but got {response.json()['prediction']}"

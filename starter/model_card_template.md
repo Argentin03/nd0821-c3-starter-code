@@ -7,7 +7,7 @@ For additional information see the Model Card paper: https://arxiv.org/pdf/1810.
 - **Framework:** Scikit-Learn
 - **Hyperparameters:** Optimized via GridSearchCV
 - **Inputs:** "workclass","education","marital-status","occupation","relationship","race","sex","native-country"
-- **Outputs:** Predicted labels for classification tasks
+- **Outputs:** Predicted salary labels
 
 ## Intended Use
 This is a classification model that was trained on publicly available Census Bureau data. It predicts the salary class based on the input features. The model is trained to assist in decision-making processes.
@@ -23,7 +23,9 @@ This is a classification model that was trained on publicly available Census Bur
 - The model was also evaluated on slices of categorical data.
 
 ## Metrics
-- **Accuracy:** 82%
+- **Precision:** 79.6040%
+- **Recall:** 50.3760%
+- **Fbeta:** 0.617038
 
 ## Ethical Considerations
 - The model may exhibit bias depending on the representation of categories in the dataset.

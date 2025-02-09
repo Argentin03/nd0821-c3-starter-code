@@ -3,18 +3,21 @@ from fastapi import FastAPI
 from pydantic import BaseModel, Field
 import pickle
 import pandas as pd
-from starter.ml.data import process_data
-from starter.ml.model import inference
+import sys
+import os
+sys.path.append(os.path.abspath("starter/ml"))
+from data import process_data
+from model import inference
 
 # Initialize FastAPI app
 app = FastAPI()
 
 # Load trained model, encoder, and label binarizer
-with open("model.pkl", "rb") as f:
+with open("./model/model.pkl", "rb") as f:
     model = pickle.load(f)
-with open("encoder.pkl", "rb") as f:
+with open("./model/encoder.pkl", "rb") as f:
     encoder = pickle.load(f)
-with open("label_binarizer.pkl", "rb") as f:
+with open("./model/label_binarizer.pkl", "rb") as f:
     lb = pickle.load(f)
 
 # Define categorical features

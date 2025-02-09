@@ -6,8 +6,11 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import pickle
 from sklearn.model_selection import train_test_split
-from ml.model import train_model, inference
-from ml.data import process_data 
+import sys
+import os
+sys.path.append(os.path.abspath("ml"))
+from model import train_model, inference, compute_model_metrics
+from data import process_data 
 
 # Add code to load in the data.
 data = pd.read_csv("../data/census.csv")
@@ -48,3 +51,9 @@ with open("../model/label_binarizer.pkl", "wb") as f:
 # Example inference
 preds = inference(model, X_test)
 print("Sample predictions:", preds[:5])
+
+# Compute model metrics
+precision, recall, fbeta = compute_model_metrics(y_test, preds)
+print("Precision: ", precision)
+print("Recall: ", recall)
+print("Fbeta: ", fbeta)

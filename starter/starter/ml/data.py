@@ -47,6 +47,8 @@ def process_data(
     # Remove spaces
     X = X.applymap(lambda x: x.strip() if isinstance(x, str) else x)
 
+    X.columns = X.columns.str.replace(" ", "")
+
     if label is not None:
         y = X[label]
         X = X.drop([label], axis=1)
