@@ -9,7 +9,7 @@ from starter.ml.data import process_data
 
 @pytest.fixture
 def sample_data():
-    data = pd.read_csv("../data/census.csv")
+    data = pd.read_csv("./starter/data/census.csv")
     categorical_features = [
         "workclass",
         "education",

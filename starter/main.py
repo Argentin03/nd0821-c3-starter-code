@@ -11,15 +11,6 @@ from starter.ml.model import inference
 # Initialize FastAPI app
 app = FastAPI()
 
-model_path = "./starter/model/model.pkl"
-
-if not os.path.exists(model_path):
-    print(f"❌ model.pkl not found at {model_path}")
-    print(f"📂 Current directory: {os.getcwd()}")
-    print(f"📁 Files in the directory: {os.listdir('.')}")
-else:
-    print(f"✅ model.pkl found at {model_path}")
-
 # Load trained model, encoder, and label binarizer
 with open("./starter/model/model.pkl", "rb") as f:
     model = pickle.load(f)
