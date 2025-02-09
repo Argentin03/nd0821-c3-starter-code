@@ -3,7 +3,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
-
+from data import process_data
+from sklearn.metrics import accuracy_score
 
 # Optional: implement hyperparameter tuning.
 def train_model(X_train, y_train):
@@ -80,3 +81,19 @@ def inference(model, X):
         Predictions from the model.
     """
     return model.predict(X)
+
+def evaluate_model_on_slices(model, data, categorical_features, label, encoder, lb):
+    """Evaluate model performance on slices of categorical features."""
+    results = {}
+    for feature in categorical_features:
+        feature_values = data[feature].unique()
+        for value in feature_values:
+            subset = data[data[feature] == value]
+            if not subset.empty:
+                X_subset, y_subset, _, _ = process_data(
+                    subset, categorical_features=categorical_features, label=label, training=False, encoder=encoder, lb=lb
+                )
+                preds = inference(model, X_subset)
+                accuracy = accuracy_score(y_subset, preds)
+                results[f"{feature}_{value}"] = accuracy
+    return results
