@@ -4,7 +4,7 @@ import pickle
 import pandas as pd
 import uvicorn
 # import sys
-import os
+# import os
 from starter.ml.data import process_data
 from starter.ml.model import inference
 
