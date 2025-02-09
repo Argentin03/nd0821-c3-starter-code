@@ -70,4 +70,4 @@ def test_inference(sample_data):
 
 
 if __name__ == "__main__":
-    sys.path.append(os.path.abspath("ml"))
+    sys.path.append(os.path.abspath("starter/ml"))

@@ -1,6 +1,4 @@
 from fastapi.testclient import TestClient
-import sys
-import os
 from main import app
 
 # Create a test client
@@ -66,7 +64,3 @@ def test_post_predict_low_income():
     assert response.json()["prediction"] == "<=50K", (
         f"Expected '<=50K' got {response.json()['prediction']}"
     )
-
-
-if __name__ == "__main__":
-    sys.path.append(os.path.abspath("../../"))
