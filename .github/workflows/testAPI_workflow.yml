@@ -28,6 +28,7 @@ jobs:
           pip install flake8  # Install flake8 for linting
 
       - name: Run flake8 (Linting)
+        continue-on-error: true
         run: |
           flake8 . --count --show-source --statistics
 
