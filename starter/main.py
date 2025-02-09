@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel, Field
 import pickle
 import pandas as pd
+import uvicorn
 import sys
 import os
 sys.path.append(os.path.abspath("starter/ml"))
@@ -51,6 +52,42 @@ class InputData(BaseModel):
 
     class Config:
         allow_population_by_field_name = True
+        schema_extra = {
+            "examples": [
+                {
+                    "workclass": "Private",
+                    "education": "Bachelors",
+                    "marital-status": "Never-married",
+                    "occupation": "Prof-specialty",
+                    "relationship": "Not-in-family",
+                    "race": "White",
+                    "sex": "Male",
+                    "native-country": "United-States",
+                    "age": 39,
+                    "fnlwgt": 77516,
+                    "education-num": 13,
+                    "capital-gain": 2174,
+                    "capital-loss": 0,
+                    "hours-per-week": 40
+                },
+                {
+                    "workclass": "State-gov",
+                    "education": "Some-college",
+                    "marital-status": "Married-civ-spouse",
+                    "occupation": "Adm-clerical",
+                    "relationship": "Husband",
+                    "race": "Black",
+                    "sex": "Male",
+                    "native-country": "United-States",
+                    "age": 28,
+                    "fnlwgt": 336951,
+                    "education-num": 10,
+                    "capital-gain": 0,
+                    "capital-loss": 0,
+                    "hours-per-week": 30
+                }
+            ]
+        }
 
 
 @app.get("/")
@@ -60,7 +97,7 @@ def root():
 
 
 @app.post("/predict")
-def predict(input_data: InputData):
+def predict(input_data: InputData) -> dict:
     """POST endpoint for model inference."""
     
     # Convert input data to DataFrame
@@ -79,3 +116,6 @@ def predict(input_data: InputData):
     predicted_label = lb.inverse_transform(prediction)[0]
 
     return {"prediction": predicted_label}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
