@@ -3,10 +3,10 @@ from pydantic import BaseModel, Field
 import pickle
 import pandas as pd
 import uvicorn
-import sys
-import os
-from data import process_data
-from model import inference
+# import sys
+# import os
+from starter.ml.data import process_data
+from starter.ml.model import inference
 
 # Initialize FastAPI app
 app = FastAPI()
@@ -123,5 +123,5 @@ def predict(input_data: InputData) -> dict:
 
 
 if __name__ == "__main__":
-    sys.path.append(os.path.abspath("starter/ml"))
+    # sys.path.append(os.path.abspath("starter/ml"))
     uvicorn.run(app, host="0.0.0.0", port=8000)

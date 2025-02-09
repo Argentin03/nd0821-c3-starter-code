@@ -1,10 +1,10 @@
 import pytest
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
-import sys
-import os
-from model import train_model, inference
-from data import process_data
+# import sys
+# import os
+from starter.ml.model import train_model, inference
+from starter.ml.data import process_data
 
 
 @pytest.fixture
@@ -67,7 +67,5 @@ def test_inference(sample_data):
     preds = inference(model, X_train)
     assert len(preds) == len(y_train)
     assert preds[0] in model.classes_
-
-
-if __name__ == "__main__":
-    sys.path.append(os.path.abspath("starter/ml"))
+# if __name__ == "__main__":
+#     sys.path.append(os.path.abspath("starter/ml"))
