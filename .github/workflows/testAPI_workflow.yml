@@ -33,11 +33,11 @@ jobs:
 
       - name: Check if model.pkl exists
         run: |
-          if [ -f "./model/model.pkl" ]; then
-            echo "✅ model.pkl exists in ./model/"
+          if [ -f "./starter/model/model.pkl" ]; then
+            echo "✅ model.pkl exists in ./starter/model/"
           else
             echo "❌ model.pkl NOT FOUND! Check your workflow."
-            ls -R ./model || echo "No 'model' directory found!"
+            ls -R ./starter/model || echo "No 'model' directory found!"
             exit 1  # Fail the pipeline if the model is missing
           fi
 
