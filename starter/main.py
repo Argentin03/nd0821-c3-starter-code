@@ -4,12 +4,21 @@ import pickle
 import pandas as pd
 import uvicorn
 # import sys
-# import os
+import os
 from starter.ml.data import process_data
 from starter.ml.model import inference
 
 # Initialize FastAPI app
 app = FastAPI()
+
+model_path = "./model/model.pkl"
+
+if not os.path.exists(model_path):
+    print(f"❌ model.pkl not found at {model_path}")
+    print(f"📂 Current directory: {os.getcwd()}")
+    print(f"📁 Files in the directory: {os.listdir('.')}")
+else:
+    print(f"✅ model.pkl found at {model_path}")
 
 # Load trained model, encoder, and label binarizer
 with open("./model/model.pkl", "rb") as f:

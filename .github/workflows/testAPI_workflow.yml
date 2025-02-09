@@ -24,6 +24,23 @@ jobs:
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$PWD" >> $GITHUB_ENV
 
+      - name: Print current directory
+        run: |
+          echo "Current working directory:"
+          pwd
+          echo "Listing files in the working directory:"
+          ls -R .
+
+      - name: Check if model.pkl exists
+        run: |
+          if [ -f "./model/model.pkl" ]; then
+            echo "✅ model.pkl exists in ./model/"
+          else
+            echo "❌ model.pkl NOT FOUND! Check your workflow."
+            ls -R ./model || echo "No 'model' directory found!"
+            exit 1  # Fail the pipeline if the model is missing
+          fi
+
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
