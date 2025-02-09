@@ -38,10 +38,10 @@ def train_model(X_train, y_train):
     }
 
     # Perform GridSearchCV
-    grid_search = GridSearchCV(pipeline, 
-                               param_grid, 
-                               cv=5, 
-                               scoring='accuracy', 
+    grid_search = GridSearchCV(pipeline,
+                               param_grid,
+                               cv=5,
+                               scoring='accuracy',
                                n_jobs=-1)
     grid_search.fit(X_train, y_train)
 
@@ -51,7 +51,7 @@ def train_model(X_train, y_train):
 
 def compute_model_metrics(y, preds):
     """
-    Validates the trained machine learning model using precision, 
+    Validates the trained machine learning model using precision,
     recall, and F1.
 
     Inputs
@@ -89,11 +89,11 @@ def inference(model, X):
     return model.predict(X)
 
 
-def evaluate_model_on_slices(model, 
-                             data, 
-                             categorical_features, 
-                             label, 
-                             encoder, 
+def evaluate_model_on_slices(model,
+                             data,
+                             categorical_features,
+                             label,
+                             encoder,
                              lb):
     """Evaluate model performance on slices of categorical features."""
     results = {}

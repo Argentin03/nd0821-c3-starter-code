@@ -36,15 +36,15 @@ cat_features = [
 class InputData(BaseModel):
     workclass: str = Field(..., example="Private")
     education: str = Field(..., example="Bachelors")
-    marital_status: str = Field(..., 
-                                alias="marital-status", 
+    marital_status: str = Field(...,
+                                alias="marital-status",
                                 example="Never-married")
     occupation: str = Field(..., example="Prof-specialty")
     relationship: str = Field(..., example="Not-in-family")
     race: str = Field(..., example="White")
     sex: str = Field(..., example="Male")
-    native_country: str = Field(..., 
-                                alias="native-country", 
+    native_country: str = Field(...,
+                                alias="native-country",
                                 example="United-States")
     age: int = Field(..., example=39)
     fnlwgt: int = Field(..., example=77516)
@@ -109,7 +109,7 @@ def predict(input_data: InputData) -> dict:
 
     # Process input data
     X_processed, _, _, _ = process_data(
-        data_df, categorical_features=cat_features, 
+        data_df, categorical_features=cat_features,
         label=None, training=False, encoder=encoder, lb=lb
     )
 

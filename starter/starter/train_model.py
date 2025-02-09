@@ -4,7 +4,6 @@ import pickle
 from sklearn.model_selection import train_test_split
 import sys
 import os
-sys.path.append(os.path.abspath("ml"))
 from model import train_model, inference, compute_model_metrics
 from data import process_data
 
@@ -59,3 +58,6 @@ precision, recall, fbeta = compute_model_metrics(y_test, preds)
 print("Precision: ", precision)
 print("Recall: ", recall)
 print("Fbeta: ", fbeta)
+
+if __name__ == "__main__":
+    sys.path.append(os.path.abspath("ml"))

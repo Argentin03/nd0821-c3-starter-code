@@ -3,7 +3,6 @@ import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 import sys
 import os
-sys.path.append(os.path.abspath("ml"))
 from model import train_model, inference
 from data import process_data
 
@@ -68,3 +67,6 @@ def test_inference(sample_data):
     preds = inference(model, X_train)
     assert len(preds) == len(y_train)
     assert preds[0] in model.classes_
+
+if __name__ == "__main__":
+    sys.path.append(os.path.abspath("ml"))
