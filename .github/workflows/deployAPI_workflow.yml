@@ -28,6 +28,11 @@ jobs:
                       pytest==8.3.4 requests==2.32.3 fastapi==0.115.4 \
                       uvicorn==0.32.1 gunicorn httpx
           pip install flake8  # Install flake8 for linting
+      
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+          heroku --version
       # - name: Deploy to Heroku
       #   env:
       #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
