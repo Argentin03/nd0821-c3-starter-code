@@ -33,6 +33,10 @@ jobs:
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh
           heroku --version
+
+      - name: Unshallow Git Repository
+        run: |
+          git fetch --all --unshallow
       # - name: Deploy to Heroku
       #   env:
       #     HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
