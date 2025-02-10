@@ -41,7 +41,7 @@ def sample_data():
 
 def test_process_data(sample_data):
     """Test the process_data function."""
-    data, categorical_features, label, _, _, _, _ = sample_data
+    data, categorical_features, label, _, _, _, _, _ = sample_data
     X, y, encoder, lb = process_data(
         data,
         categorical_features=categorical_features,
@@ -57,7 +57,7 @@ def test_process_data(sample_data):
 def test_train_model(sample_data):
     """Test the train_model function."""
     _, _, _, X_train, y_train, _, _, model = sample_data
-    assert isinstance(model, RandomForestClassifier)
+    assert isinstance(model.named_steps['model'], RandomForestClassifier)
     assert len(model.classes_) > 1
 
 
